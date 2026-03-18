@@ -24,6 +24,7 @@ def _get_collection():
         api_key = os.environ.get("OPENAI_API_KEY") or OPENAI_API_KEY
         if api_key:
             os.environ["OPENAI_API_KEY"] = api_key
+            os.environ["CHROMA_OPENAI_API_KEY"] = api_key
         openai_ef = embedding_functions.OpenAIEmbeddingFunction(
             api_key=api_key,
             model_name=EMBEDDING_MODEL
