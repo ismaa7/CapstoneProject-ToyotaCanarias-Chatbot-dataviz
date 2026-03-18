@@ -21,8 +21,11 @@ def _get_client():
 def _get_collection():
     global _collection
     if _collection is None:
+        api_key = os.environ.get("OPENAI_API_KEY") or OPENAI_API_KEY
+        if api_key:
+            os.environ["OPENAI_API_KEY"] = api_key
         openai_ef = embedding_functions.OpenAIEmbeddingFunction(
-            api_key=os.environ.get("OPENAI_API_KEY", OPENAI_API_KEY),
+            api_key=api_key,
             model_name=EMBEDDING_MODEL
         )
         chroma_client = chromadb.PersistentClient(path=VECTORSTORE_DIR)
